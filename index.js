@@ -25,7 +25,7 @@ const htmlArrayToArray = (htmlArray) => {
     "use strict";
     let autoClickInterval;
     let autoBreedingInterval;
-  
+    console.log('INIT IN PROGRESS')
     const enemy = document.getElementsByClassName("enemy")?.[0];
   
     const autoclick = (time = 10) => {
