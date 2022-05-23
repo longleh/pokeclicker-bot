@@ -27,19 +27,13 @@ const logger = (message, on = true) => {
   const enemy = document.getElementsByClassName("enemy")?.[0];
   const autoBreedingEventHandler = document.createElement("div");
 
-  const recursiveBreed = (pkmnIndex, pkmnToHatch, breedModal) => {
-    if (
-      pkmnIndex < numberOfBreed &&
-      breedModal.classList.contains("active") &&
-      pkmnIndex < pkmToHatch.length
-    ) {
-      pkmToHatch[pkmnIndex].children[4].click();
-      setTimeout(
-        () => recursiveBreed(pkmnIndex++, pkmnToHatch, breedModal),
-        1000
-      );
+  const recursiveBreed = (pkmnIndex, pkmnToHatch) => {
+    if (pkmnIndex < numberOfBreed && pkmnIndex < pkmnToHatch.length) {
+      pkmnToHatch[pkmnIndex].children[4].click();
+      setTimeout(() => recursiveBreed(pkmnIndex + 1, pkmnToHatch), 2000);
     } else {
       logger("BREEDING: END", false);
+      numberOfBreed = 0;
       return "OK";
     }
   };
@@ -51,7 +45,6 @@ const logger = (message, on = true) => {
     logger("BREEDING: START");
     const breedModal = document.getElementById("breeding-pokemon");
     recursiveBreed(0, pkmToHatch, breedModal);
-    numberOfBreed = 0;
   };
 
   autoBreedingEventHandler.addEventListener("breed", breed);
@@ -69,27 +62,37 @@ const logger = (message, on = true) => {
     logger("AUTOCLICK: OFF", false);
   };
 
+  const openDayCare = () => {
+    if (numberOfBreed > 0) {
+      // open day care
+      document
+        .querySelector("[data-town='Pokemon Day Care']")
+        .dispatchEvent(new Event("click"));
+      setTimeout(() => {
+        autoBreedingEventHandler.dispatchEvent(new Event("breed"));
+      }, 3000);
+    }
+  };
+
+  const recursiveEggHatching = (numberOfEggs) => {
+    if (numberOfEggs === 0) {
+      return openDayCare();
+    }
+    const e = htmlArrayToArray(document.getElementsByClassName("hatching"));
+    e[0].click();
+    setTimeout(() => recursiveEggHatching(numberOfEggs - 1), 1500);
+  };
+
   const autoBreedingFunc = () => {
     logger("AUTOBREEDING: ON");
     autoBreedingInterval = setInterval(() => {
       const eggs = htmlArrayToArray(
         document.getElementsByClassName("hatching")
       );
-      let hatchedEggs = 0;
       if (eggs.length > 0) {
-        eggs.forEach((egg) => egg.click());
-        hatchedEggs++;
+        numberOfBreed = eggs.length;
+        recursiveEggHatching(numberOfBreed);
       }
-      if (hatchedEggs > 0) {
-        // open day care
-        document
-          .querySelector("[data-town='Pokemon Day Care']")
-          .dispatchEvent(new Event("click"));
-        setTimeout(() => {
-          autoBreedingEventHandler.dispatchEvent(new Event("breed"));
-        }, 3000);
-      }
-      hatchedEggs = 0;
     }, 10000);
   };
 
