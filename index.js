@@ -61,20 +61,17 @@ const htmlArrayToArray = (htmlArray) => {
               document.querySelectorAll("li.eggSlot.pokedexEntry")
             );
               const breedModal = document.getElementById('breeding-pokemon');
-              console.log(pkmToHatch);
-              debugger;
             for (
               let pkmnIndex = 0;
               breedModal.classList.contains('active') &&
               pkmnIndex < pkmToHatch.length;
               pkmnIndex++
             ) {
-                console.log(pkmToHatch[pkmnIndex]);
               if (
                 unsafeWindow.getComputedStyle(pkmToHatch[pkmnIndex]).display !==
                 "none"
               ) {
-                  console.log('FOUND');
+                pkmToHatch[pkmnIndex].click()
               }
             }
           }, 3000);
