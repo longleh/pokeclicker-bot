@@ -25,7 +25,6 @@ const htmlArrayToArray = (htmlArray) => {
     "use strict";
     let autoClickInterval;
     let autoBreedingInterval;
-    console.log('INIT IN PROGRESS')
     const enemy = document.getElementsByClassName("enemy")?.[0];
   
     const autoclick = (time = 10) => {
@@ -67,7 +66,7 @@ const htmlArrayToArray = (htmlArray) => {
             for (
               let pkmnIndex = 0;
               breedModal.classList.contains('active') &&
-              pkmToHatch[pkmnIndex] < pkmToHatch.length;
+              pkmnIndex < pkmToHatch.length;
               pkmnIndex++
             ) {
                 console.log(pkmToHatch[pkmnIndex]);
