@@ -30,7 +30,7 @@ const logger = (message, on = true) => {
   const recursiveBreed = (pkmnIndex, pkmnToHatch) => {
     if (pkmnIndex < numberOfBreed && pkmnIndex < pkmnToHatch.length) {
       pkmnToHatch[pkmnIndex].children[4].click();
-      setTimeout(() => recursiveBreed(pkmnIndex + 1, pkmnToHatch), 2000);
+      setTimeout(() => recursiveBreed(pkmnIndex + 1, pkmnToHatch), 1000);
     } else {
       logger("BREEDING: END", false);
       numberOfBreed = 0;
@@ -70,7 +70,7 @@ const logger = (message, on = true) => {
         .dispatchEvent(new Event("click"));
       setTimeout(() => {
         autoBreedingEventHandler.dispatchEvent(new Event("breed"));
-      }, 3000);
+      }, 2000);
     }
   };
 
@@ -80,7 +80,7 @@ const logger = (message, on = true) => {
     }
     const e = htmlArrayToArray(document.getElementsByClassName("hatching"));
     e[0].click();
-    setTimeout(() => recursiveEggHatching(numberOfEggs - 1), 1500);
+    setTimeout(() => recursiveEggHatching(numberOfEggs - 1), 1000);
   };
 
   const autoBreedingFunc = () => {
