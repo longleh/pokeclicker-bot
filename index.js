@@ -58,21 +58,18 @@ const htmlArrayToArray = (htmlArray) => {
             .dispatchEvent(new Event("click"));
           setTimeout(() => {
             const pkmToHatch = htmlArrayToArray(
-              document.querySelectorAll("li.eggSlot.pokedexEntry")
+              document.querySelectorAll('li.eggSlot:not([style*=display])')
             );
               const breedModal = document.getElementById('breeding-pokemon');
             for (
               let pkmnIndex = 0;
+              document.querySelectorAll('.egg').length < 4 &&
               breedModal.classList.contains('active') &&
               pkmnIndex < pkmToHatch.length;
               pkmnIndex++
             ) {
-              if (
-                unsafeWindow.getComputedStyle(pkmToHatch[pkmnIndex]).display !==
-                "none"
-              ) {
-                pkmToHatch[pkmnIndex].click()
-              }
+              // 4th children is the click event handler
+                pkmToHatch[pkmnIndex].children[4].click()
             }
           }, 3000);
         }
