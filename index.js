@@ -159,7 +159,7 @@ const logger = (message, on = true) => {
     }, 5000);
   };
 
-  waitForGame();
+  // waitForGame();
 
   unsafeWindow.autoclick = autoclick;
   unsafeWindow.stop = stop;
