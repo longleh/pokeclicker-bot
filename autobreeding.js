@@ -38,6 +38,7 @@ const logger = (message, type = loggerType.on) => {
 (function () {
   "use strict";
   const isRunning = () => autoBreedIntervalId !== 0;
+  const shouldBreedNewPokemon = () => !!App.game.breeding.canBreedPokemon() && App.game.breeding.queueList().length === 0
 
   const autobreedRecursive = (index) => {
     const eggs = App.game.breeding._eggList;
@@ -59,6 +60,7 @@ const logger = (message, type = loggerType.on) => {
     const hatchList = PartyController.getHatcherySortedList();
     const pkmnToHatch = hatchList.length > 0 ? hatchList[index] : null;
     if (!pkmnToHatch) {
+      
       return;
     }
     if (BreedingController.visible(pkmnToHatch)())
@@ -70,7 +72,7 @@ const logger = (message, type = loggerType.on) => {
     logger("AUTOBREEDING: ON");
     autoBreedIntervalId = setInterval(() => {
       autobreedRecursive(0);
-      if (!!App.game.breeding.canBreedPokemon()) {
+      if (shouldBreedNewPokemon()) {
         BreedingController.openBreedingModal();
         setTimeout(() => {
           checkForHatchingRecursive(0);

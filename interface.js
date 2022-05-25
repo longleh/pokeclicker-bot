@@ -39,7 +39,7 @@ const logger = (message, type = loggerType.on) => {
     container.appendChild(cardHeader);
     container.appendChild(cardBody);
 
-    document.getElementById("right-column").appendChild(container);
+    document.getElementById("left-column").appendChild(container);
   };
 
   const waitForGame = () => {
@@ -56,5 +56,7 @@ const logger = (message, type = loggerType.on) => {
   };
 
   waitForGame();
-  GM_addStyle(".pokebot-feature-container {  display: flex;  justify-content: space-between;  margin: 8px 16px 0px 16px; font-weight: lighter;}.pokebot-button {  width: 40%;  border: none;  border-radius: 10%;  transition: background 0.5s;  font-weight: bold; background: unset;}.pokebot-button.pokebot-enable {  color: #388E3C;}.pokebot-button.pokebot-disable {  color: #D32F2F;}.pokebot-button.pokebot-enable:hover {  background: #C8E6C9;}.pokebot-button.pokebot-disable:hover {  background: #FFCDD2;}")
+  GM_addStyle(
+    ".pokebot-feature-container {  display: flex;  justify-content: space-between;  margin: 8px 16px 0px 16px; font-weight: lighter;}.pokebot-button {  width: 40%;  border: none;  border-radius: 10%;  transition: background 0.5s;  font-weight: bold; background: unset;}.pokebot-button.pokebot-enable {  color: #388E3C;}.pokebot-button.pokebot-disable {  color: #D32F2F;}.pokebot-button.pokebot-enable:hover {  background: #C8E6C9;}.pokebot-button.pokebot-disable:hover { background: #FFCDD2;}#pokebot-interface-body { padding-bottom: 8px !important; }"
+  );
 })();

@@ -26,19 +26,45 @@ const logger = (message, type = loggerType.on) => {
 
 (function () {
   "use strict";
-  const isRunning = () => clickAttackIntervalId !== 0
+  const isRunning = () => clickAttackIntervalId !== 0;
+
+  const autoClickGym = () => {
+    GymBattle.clickAttack();
+  };
+
+  const autoClickDungeon = () => {
+    DungeonRunner.handleClick();
+  };
+
+  const autoclickFighting = () => {
+    if (Battle.enemyPokemon()?.isAlive()) {
+      Battle.clickAttack();
+    }
+  };
 
   const autoclick = () => {
     logger("AUTOCLICKER: ON");
     clickAttackIntervalId = setInterval(() => {
-      Battle.clickAttack();
+      switch (App.game.gameState) {
+        case GameConstants.GameState.dungeon:
+          autoClickDungeon();
+          break;
+        case GameConstants.GameState.gym:
+          autoClickGym();
+          break;
+        case GameConstants.GameState.fighting:
+          autoclickFighting();
+          break;
+        default:
+          break;
+      }
     }, clickAttackTime);
   };
 
   const stopAutoclick = () => {
     logger("AUTOCLICKER: OFF", loggerType.off);
     clearInterval(clickAttackIntervalId);
-    clickAttackIntervalId = 0
+    clickAttackIntervalId = 0;
   };
 
   const generateInput = () => {
