@@ -134,5 +134,5 @@ const logger = (message, type = loggerType.on) => {
 
   waitForInterface();
 
-  logger("AUTOBREDD SCRIPT: LOADED", loggerType.info);
+  logger("AUTOBREED SCRIPT: LOADED", loggerType.info);
 })();
